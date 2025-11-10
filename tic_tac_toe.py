@@ -23,6 +23,38 @@ def is_draw(board):
     return all(space != " " for space in board)
 
 def tic_tac_toe():
+    board = [" "] * 9
+    current_player = "X"
+    print("Welcome to TIC-TAC-TOE!")
+    print("This is a two player TIC-TAC-Toe Game!")
+    print_board(board)
 
-    if __name__ == "__main__":
+    while True:
+        try:
+            move = int(input(f"Player {current_player}, choose your move (1-9): ")) - 1
+            if move < 0 or move > 8:
+                print("Invalid move. Please choose a number between 1 and 9.")
+                continue
+            if board[move] != " ":
+                print("That space is already taken. Try again.")
+                continue
+
+            board[move] = current_player
+            print_board(board)
+
+            if check_winner(board, current_player):
+                print(f"🎉 Player {current_player} wins!")
+                break
+            elif is_draw(board):
+                print("It's a draw! 🤝")
+                break
+
+            current_player = "O" if current_player == "X" else "X"
+        except ValueError:
+            print("Please enter a valid number between 1 and 9.")
+
+    print("Game over!")
+
+
+if __name__ == "__main__":
      tic_tac_toe()
